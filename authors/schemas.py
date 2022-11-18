@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, Required, PositiveInt
+from pydantic import BaseModel, PositiveInt
 
 
 class AuthorsBooks(BaseModel):
@@ -9,17 +9,17 @@ class AuthorsBooks(BaseModel):
 
 
 class AuthorBase(BaseModel):
-    email: str = Required
-    password: str = Required
-    first_name: str
-    last_name: str
+    email: str
+    password: str
+    first_name: Optional[str]
+    last_name: Optional[str]
     bio: Optional[str] = None
     books: Optional[list[PositiveInt]] = []
 
 
-class Authentification(BaseModel):
-    email: str = Required
-    password: str = Required
+class Authentication(BaseModel):
+    email: str
+    password: str
 
 
 class AuthorCreate(AuthorBase):

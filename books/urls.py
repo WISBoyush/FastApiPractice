@@ -20,7 +20,6 @@ def get_service(db: AsyncSession = Depends(get_session)):
 async def create_book(
         db: AsyncSession = Depends(get_session),
         book: BookCreate = None):
-    # service = BookService()
     return await get_service(db).create_book(book)
 
 

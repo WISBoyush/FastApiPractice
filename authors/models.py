@@ -1,6 +1,3 @@
-from datetime import datetime
-
-from pydantic import BaseModel, HttpUrl
 from sqlalchemy import Column, String, Integer, Boolean
 from sqlalchemy.orm import relationship
 
