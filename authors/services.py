@@ -54,7 +54,7 @@ class AuthorService:
         # Bruteforce security.
         # Time to validate two string will be equal.
         if not all([db_password[i] is entered_password[i] for i in range(len(db_password))]):
-            raise HTTPException(403, "Permission Denied")
+            raise HTTPException(400, "Password is wrong")
 
         return {"Success": f"Hello, {author.first_name} {author.last_name}"}
 

@@ -2,6 +2,7 @@ from fastapi import Depends
 from fastapi.exceptions import HTTPException
 from pydantic import Required
 from sqlalchemy import select, delete
+from sqlalchemy.sql import exists
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from authors.models import Author
@@ -23,7 +24,8 @@ class BookService:
     async def author_exists(self, author_id: int = None) -> bool:
         if not author_id:
             raise HTTPException(404, "Param is None", {"Error": "author_id is required"})
-        return bool((await self.db.execute(select(Author.email).where(Author.id == author_id))).scalars().first())
+
+        return (await self.db.execute(exists(select(Author).where(Author.id == author_id)).select())).scalar()
 
     async def create_book(self, book: BookCreate = None) -> Book:
         book = book.dict()
