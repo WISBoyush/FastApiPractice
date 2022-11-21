@@ -15,8 +15,8 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> JSONResponse | Response:
         authorization = request.headers.get('Authorization')
         if not authorization:
-            raise HTTPException(400, "Server have not give Token")
+            raise HTTPException(401, "Server have not give Token")
         if authorization != f"Bearer {settings.ACCESS_TOKEN}":
-            return JSONResponse(content={'detail': 'The access token isn\'t right'}, status_code=401)
+            return JSONResponse(content={'detail': 'Wrong access token'}, status_code=400)
 
         return await call_next(request)
