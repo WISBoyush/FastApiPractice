@@ -1,17 +1,10 @@
-from datetime import datetime
-
 from sqlalchemy import ForeignKey, Column, Integer, String
 from sqlalchemy.orm import relationship
-
-# from authors.models import Author  # noqa
-
-from pydantic import BaseModel, HttpUrl
 
 from main_app.db import Base
 
 
 class Book(Base):
-
     __tablename__ = 'books'
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)

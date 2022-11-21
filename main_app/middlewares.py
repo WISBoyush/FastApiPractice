@@ -17,6 +17,6 @@ class AuthorizationMiddleware(BaseHTTPMiddleware):
         if not authorization:
             raise HTTPException(400, "Server have not give Token")
         if authorization != f"Bearer {settings.ACCESS_TOKEN}":
-            return JSONResponse(content={'detail': 'sorry, you don\'t have the ~right~ access token'}, status_code=400)
+            return JSONResponse(content={'detail': 'The access token isn\'t right'}, status_code=401)
 
         return await call_next(request)

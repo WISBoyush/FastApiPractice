@@ -18,19 +18,19 @@ class BookService:
     async def get_instance(self, item_id: int = None) -> Book:
         instance = (await self.db.execute(select(Book).where(Book.id == item_id))).scalars().first()
         if not instance:
-            raise HTTPException(404, "There is not Book Instance")
+            raise HTTPException(404, "There is no Book Instance")
         return instance
 
     async def author_exists(self, author_id: int = None) -> bool:
         if not author_id:
-            raise HTTPException(404, "Param is None", {"Error": "author_id is required"})
+            raise HTTPException(400, "Param is None", {"Error": "author_id is required"})
 
         return (await self.db.execute(exists(select(Author).where(Author.id == author_id)).select())).scalar()
 
     async def create_book(self, book: BookCreate = None) -> Book:
         book = book.dict()
         if book["author_id"] and not await self.author_exists(author_id=book["author_id"]):
-            raise HTTPException(400, "There is not Author with this ID")
+            raise HTTPException(404, "There is not Author with this ID")
         new_book = Book(**book)
         self.db.add(new_book)
         await self.db.commit()
@@ -53,7 +53,7 @@ class BookService:
         if changes.author_id:
             is_author = await self.author_exists(author_id)
         if not is_author:
-            raise HTTPException(400, "There is not Author")
+            raise HTTPException(404, "There is no Author")
         for field, value in changes.dict(exclude_unset=True).items():
             setattr(book, field, value)
 

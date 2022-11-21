@@ -1,10 +1,10 @@
 from typing import Optional
 
-from pydantic import BaseModel, PositiveInt
+from pydantic import BaseModel, PositiveInt, Required
 
 
 class AuthorBase(BaseModel):
-    email: str
+    email: str = Required
     password: str
     first_name: Optional[str]
     last_name: Optional[str]
