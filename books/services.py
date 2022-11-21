@@ -65,4 +65,4 @@ class BookService:
         instance = await self.get_instance(book_id)
         await self.db.execute(delete(Book).where(Book.id == instance.id))
         await self.db.commit()
-        return {"Object": "Was successfully deleted"}
+        return instance

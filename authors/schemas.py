@@ -3,17 +3,12 @@ from typing import Optional
 from pydantic import BaseModel, PositiveInt
 
 
-class AuthorsBooks(BaseModel):
-    id: Optional[int]
-    title: Optional[str]
-
-
 class AuthorBase(BaseModel):
     email: str
     password: str
     first_name: Optional[str]
     last_name: Optional[str]
-    bio: Optional[str] = None
+    bio: Optional[str]
     books: Optional[list[PositiveInt]] = []
 
 

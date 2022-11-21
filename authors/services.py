@@ -72,6 +72,7 @@ class AuthorService:
         return author
 
     async def delete_author(self, author_id: int = None):
+        instance = await self.get_instance(author_id)
         await self.db.execute(delete(Author).where(Author.id == author_id))
         await self.db.commit()
-        return {"Object": "Was successfully deleted"}
+        return instance

@@ -7,7 +7,7 @@ from main_app.db import get_session
 
 router = APIRouter(
     prefix='/authors',
-    tags=[''],
+    tags=['authors'],
     responses={404: {'detail': 'Not Found'}}
 )
 
